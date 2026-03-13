@@ -1,16 +1,19 @@
-const input=document.getElementById("todoInput")
-const btn=document.getElementById("addBtn")
-const list=document.getElementById("todoList")
-const filters=document.querySelectorAll(".filters button")
-const dateInput=document.getElementById("todoDate")
-const timeInput=document.getElementById("todoTime")
-let todos=JSON.parse(localStorage.getItem("todos_v1")||"[]")
-let filter="all"
+const input=document.getElementById("todoInput")//getting input over DOM
+const btn=document.getElementById("addBtn")//same here
+const list=document.getElementById("todoList")//and here
+const filters=document.querySelectorAll(".filters button")//this is a nodelist
+const dateInput=document.getElementById("todoDate")//same as over filter
+const timeInput=document.getElementById("todoTime")//time input
+let todos=JSON.parse(localStorage.getItem("todos_v1")||"[]")//getting local storage
+let filter="all"//filter is beeing set to all
 
+//save via Localstorage
 function save(){
     localStorage.setItem("todos_v1",JSON.stringify(todos))
 }
 
+
+//render over dom and doing classes
 function render(){
     list.innerHTML=""
 
@@ -41,22 +44,17 @@ function render(){
         controls.className="controls"
         done.className="icon"
         done.textContent="✓"
-        done.onclick=()=>{
-            todos[realIndex].done=!todos[realIndex].done
-            save()
+        done.onclick=()=>{todos[realIndex].done=!todos[realIndex].donesave()
             render()
         }
 
         del.className="icon"
         del.textContent="✕"
-        del.onclick=()=>{
-            li.classList.add("remove")
-            setTimeout(()=>{
-                todos.splice(realIndex,1)
-                save()
-                render()
-            },260)
-        }
+        del.onclick=()=>{li.classList.add("remove")
+            setTimeout(()=>{todos.splice(realIndex,1)
+            save()
+            render()
+        },260)}
 
         controls.appendChild(done)
         controls.appendChild(del)
@@ -66,32 +64,25 @@ function render(){
     })
 }
 
+//adds todo
 function add(){
     const val=input.value.trim()
     if(!val)return
 
-    todos.push({
-        text:val,
-        done:false,
-        date:dateInput.value,
-        time:timeInput.value,
-        reminded:false
-    })
-
+    todos.push({text:val, done:false, date:dateInput.value, time:timeInput.value, reminded:false})
     input.value=""
     dateInput.value=""
     timeInput.value=""
-
     save()
     render()
 }
 
 btn.onclick=add
-
+//add by enter clicking
 input.addEventListener("keypress",e=>{
     if(e.key==="Enter")add()
 })
-
+//check active
 filters.forEach(b=>{
     b.onclick=()=>{
         filters.forEach(x=>x.classList.remove("active"))
@@ -100,11 +91,11 @@ filters.forEach(b=>{
         render()
     }
 })
-
+// Nots getting
 if ("Notification" in window) {
     Notification.requestPermission()
 }
-
+//Timer and nots
 setInterval(() => {
     const now = new Date()
 
