@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Todo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <h1>Todos</h1>
+
+    <div class="inputArea">
+        <input id="todoInput" maxlength="200" placeholder="Neues Todo">
+        <input type="date" id="todoDate">
+        <input type="time" id="todoTime">
+        <button id="addBtn">Add</button>
+    </div>
+
+    <div class="filters">
+        <button data-filter="all" class="active">Alle</button>
+        <button data-filter="open">Ausstehend</button>
+        <button data-filter="done">Erledigt</button>
+    </div>
+
+    <ul id="todoList"></ul>
+
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
